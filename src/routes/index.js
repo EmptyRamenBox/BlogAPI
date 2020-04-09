@@ -3,7 +3,7 @@
 import { Router } from "express";
 
 import root from "./root";
-import api from "../api";
+import api from "./api";
 
 const router = Router();
 

@@ -483,3 +483,8 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/node,windows,visualstudio
+
+# SQLite3
+# Ignore SQLite Database information from being
+# Uploaded to GitHub
+db.sqlite
