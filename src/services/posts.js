@@ -42,7 +42,13 @@ const createPostObject = (data) => {
 // return the existing posts
 export const getAll = async () => {
   const posts = await db("posts");
-  return posts;
+  const postsPromises = posts.map(async (post) => {
+    const author = await db("users").where({ id: post.author }).first();
+    post.author = author;
+    return posts;
+  }); // mapping the object (posts.map) to the author (id: post.author)
+
+  return await Promise.all(postsPromises);
 };
 
 //  router.get /posts/:id
@@ -52,16 +58,20 @@ export const getAll = async () => {
 //      ie. id === id
 //      We are only going to return the first ID in the array
 export const getById = async (id) => {
-  console.log("post");
   const post = await db("posts").where({ id }).first();
-  return post; // return first post if it does or does not exist
+  if (post) {
+    const author = await db("users").where({ id: post.author }).first();
+    return { ...post, author };
+  } else {
+    return null;
+  }
 };
 
 // Adding Posts
 export const add = async (post) => {
   const postObject = createNewPostObject(post); // create post object by validating post
   if (!postObject.error) {
-    const id = await db("posts").insert(postObject); // .retuning Knew Doc
+    const id = await db("posts").insert(post); // .retuning Knew Doc
     return await getById(id[0]);
   } else {
     // if an error occurs

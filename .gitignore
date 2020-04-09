@@ -488,3 +488,5 @@ MigrationBackup/
 # Ignore SQLite Database information from being
 # Uploaded to GitHub
 db.sqlite
+# Ignore Firebase keys
+firebaseSA.json
