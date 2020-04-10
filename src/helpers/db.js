@@ -34,7 +34,7 @@ const createTables = async () => {
         table.string("uuid");
         table.string("name");
         table.string("email");
-        table.timestamp("picture");
+        table.string("picture");
         table.timestamp("created").defaultTo(new Date().toLocaleString());
         table.timestamp("lastAccess").defaultTo(new Date().toLocaleString());
       })

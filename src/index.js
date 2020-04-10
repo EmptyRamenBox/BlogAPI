@@ -11,14 +11,11 @@ import router from "./routes";
 const app = express();
 const port = parseInt(process.env.PORT);
 
-app.use(
-  cors({
-    origin: process.env.ORIGIN,
-  })
-);
+app.use(cors({ origin: process.env.ORIGIN }));
 app.use(helmet());
 app.use(pino());
 app.use(express.json());
+
 app.use(router);
 
 app.use(notFound);

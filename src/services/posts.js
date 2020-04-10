@@ -45,7 +45,7 @@ export const getAll = async () => {
   const postsPromises = posts.map(async (post) => {
     const author = await db("users").where({ id: post.author }).first();
     post.author = author;
-    return posts;
+    return post;
   }); // mapping the object (posts.map) to the author (id: post.author)
 
   return await Promise.all(postsPromises);
@@ -69,13 +69,12 @@ export const getById = async (id) => {
 
 // Adding Posts
 export const add = async (post) => {
-  const postObject = createNewPostObject(post); // create post object by validating post
+  const postObject = createNewPostObject(post);
   if (!postObject.error) {
-    const id = await db("posts").insert(post); // .retuning Knew Doc
+    const id = await db("posts").insert(post);
     return await getById(id[0]);
   } else {
-    // if an error occurs
-    return postObject; // Because we are returning an error
+    return postObject;
   }
 };
 
